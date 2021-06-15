@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../utils/consts";
 import { login, registration } from "../http/userAPI";
 import { setIsAuth, setUser } from "../store/userReducer";
+import { useDispatch } from "react-redux";
 
 const Auth = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const click = async (e) => {
     e.preventDefault();
@@ -25,8 +27,8 @@ const Auth = () => {
       } else {
         user = await registration(email, password);
       }
-      setUser(user);
-      setIsAuth(true);
+      dispatch(setUser(user));
+      dispatch(setIsAuth(true));
       history.push(SHOP_ROUTE);
     } catch (e) {
       alert(e.response.data.message);

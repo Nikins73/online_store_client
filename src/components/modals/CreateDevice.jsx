@@ -47,7 +47,8 @@ const CreateDevice = ({ show, onHide }) => {
     formData.append("img", file);
     formData.append("brandId", brand.id);
     formData.append("typeId", type.id);
-    formData.append("info", JSON.stringify(info));
+    formData.append("info[]", info);
+    // formData.append("info[]", JSON.stringify(info));
 
     createDevice(formData)
       .then((data) => {
